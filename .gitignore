@@ -4,4 +4,6 @@
 .Ruserdata
 
 datos/crudos/
+datos/porcesados/
 *.csv
+*.parquet
