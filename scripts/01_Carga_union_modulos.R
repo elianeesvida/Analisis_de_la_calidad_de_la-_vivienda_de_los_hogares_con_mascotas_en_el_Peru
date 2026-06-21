@@ -61,3 +61,13 @@ enaho_2025_mascotas <- mod100 %>%
 #así que algunos hogares seguirán con NA: representan hogares que
 #no fueron seleccionados para esa sub-muestra, no "sin mascota"
 sum(is.na(enaho_2025_mascotas$tiene_mascota))
+
+#7. Exportación de la base de datos creada------------------------
+
+install.packages("arrow")
+library(arrow)
+renv::snapshot()
+
+
+
+
