@@ -16,7 +16,7 @@ renv::snapshot()
 mod100 <- import(
   "datos/crudos/Enaho01-2025-100.csv",
   encoding = "Latin-1", sep = ";", dec = ",",
-  na.strings = c("", " ", "NA"),
+  na.strings = c("", "NA"),
   colClasses = c(CONGLOME = "character", VIVIENDA = "character",
                  HOGAR = "character", UBIGEO = "character")
 )
@@ -24,7 +24,7 @@ mod100 <- import(
 mod118 <- import(
   "datos/crudos/Enaho01-2025-118.csv",
   encoding = "Latin-1", sep = ";", dec = ",",
-  na.strings = c("", " ", "NA"),
+  na.strings = c("", "NA"),
   colClasses = c(CONGLOME = "character", VIVIENDA = "character",
                  HOGAR = "character", UBIGEO = "character")
 )
@@ -50,7 +50,7 @@ mascotas_hogar <- mod118 %>%
     tiene_gato         = any(p118a1 == 2 & p118b == 1, na.rm = TRUE),
     tiene_otra_mascota = any(p118a1 == 3 & p118b == 1, na.rm = TRUE),
     tiene_mascota      = any(p118b == 1, na.rm = TRUE),
-    .groups = "drop"
+    factor_s           = first(factor_s),  
   )
 
 #6. Unión de las bases----------------------------------
@@ -71,6 +71,15 @@ renv::snapshot()
 write_parquet(enaho_2025_mascotas, "datos/procesados/enaho_2025_210626.parquet")
 
 renv::snapshot()
+
+
+
+
+
+
+
+
+
 
 
 
