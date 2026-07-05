@@ -1,10 +1,14 @@
 # README: Análisis de la calidad de la vivienda de los hogares con mascotas en el Perú
 **Autor:** Eliane Caceres
+
 **Curso:** Taller de Procesamiento de Datos (1SOC03)
+
 **Encuesta:** Encuesta Nacional de Hogares, Instituto Nacional de Estadística e Informática, 2025
+
 **Módulos utilizados:**
 - *Módulo 100* – Características de la Vivienda y del Hogar
 - *Módulo 118* – Crianza de Mascotas en el Hogar
+
 **Unidad de análisis:** Hogar (hogares que respondieron el módulo 118)
 
 ## Descripción del proyecto
