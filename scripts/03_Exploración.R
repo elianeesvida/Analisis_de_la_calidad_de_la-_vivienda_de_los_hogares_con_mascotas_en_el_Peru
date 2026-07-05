@@ -121,7 +121,7 @@ formato_flextable <- function(tabla, titulo) {
     align(j = 1, align = "left", part = "body") %>%
     bold(part = "header") %>%
     align(align = "left", part = "footer") %>%
-    fontsize(size = 9, part = "footer") %>%
+    fontsize(size = 7, part = "footer") %>%
     hline_bottom(part = "body",   border = officer::fp_border(width = 1)) %>%
     hline_bottom(part = "footer", border = officer::fp_border(width = 0))
 }
