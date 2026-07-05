@@ -484,6 +484,17 @@ save_as_image(ft_nbi_tipo,     path = paste0(ruta_salida, "/Tabla5_NBI_Tipo_Masc
 save_as_image(ft_mascota_area, path = paste0(ruta_salida, "/Tabla6_Mascota_Area.png"))
 save_as_image(ft_nbi_area,     path = paste0(ruta_salida, "/Tabla7_NBI_Area.png"))
 
+# Gráficos
+ggsave(paste0(ruta_salida, "/Grafico1_Tenencia_Mascota.png"),
+       plot = plot_mascota,      width = 8,  height = 5, bg = "white")
+ggsave(paste0(ruta_salida, "/Grafico2_Tipo_Mascota.png"),
+       plot = plot_tipo_mascota, width = 8,  height = 5, bg = "white")
+ggsave(paste0(ruta_salida, "/Grafico3_NBI_Mascotas.png"),
+       plot = plot_nbi,          width = 10, height = 5, bg = "white")
+ggsave(paste0(ruta_salida, "/Grafico4_NBI_Tipo_Mascota.png"),
+       plot = plot_nbi_tipo,     width = 10, height = 5, bg = "white")
+ggsave(paste0(ruta_salida, "/Grafico5_NBI_Area.png"),
+       plot = plot_nbi_area,     width = 10, height = 5, bg = "white")
 
 
 
