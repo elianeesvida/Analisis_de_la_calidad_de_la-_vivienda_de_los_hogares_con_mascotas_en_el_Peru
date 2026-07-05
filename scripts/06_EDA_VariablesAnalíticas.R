@@ -305,3 +305,33 @@ plot_cv_tipo_area <- ggplot(
   theme(legend.position = "bottom")
 print(plot_cv_tipo_area)
 
+# ==============================================================================
+# 5. EXPORTACIÓN DE TABLAS Y GRÁFICOS------------------------------------------
+# ==============================================================================
+ruta_salida <- "outputs/outputs_exploracion_analitica"
+
+if (!dir.exists(ruta_salida)) {
+  dir.create(ruta_salida, recursive = TRUE)
+}
+
+# Tablas en Word
+save_as_docx(tabla_categoria_cv,  path = here(ruta_salida, "Tabla1_Calidad_Vivienda.docx"))
+save_as_docx(tabla_tipologia,     path = here(ruta_salida, "Tabla2_Tipologia_Mascota.docx"))
+save_as_docx(tabla_cv_tipologia,  path = here(ruta_salida, "Tabla3_CV_Tipologia.docx"))
+save_as_docx(tabla_cv_area,       path = here(ruta_salida, "Tabla4_CV_Area.docx"))
+save_as_docx(tabla_cv_tipo_area,  path = here(ruta_salida, "Tabla5_CV_Tipologia_Area.docx"))
+
+# Gráficos en PNG
+ggsave(here(ruta_salida, "Grafico1_Calidad_Vivienda.png"),
+       plot = plot_categoria_cv,  width = 8,  height = 5, dpi = 300, bg = "white")
+ggsave(here(ruta_salida, "Grafico2_Tipologia_Mascota.png"),
+       plot = plot_tipologia,     width = 8,  height = 5, dpi = 300, bg = "white")
+ggsave(here(ruta_salida, "Grafico3_CV_Tipologia.png"),
+       plot = plot_cv_tipologia,  width = 10, height = 6, dpi = 300, bg = "white")
+ggsave(here(ruta_salida, "Grafico4_CV_Area.png"),
+       plot = plot_cv_area,       width = 8,  height = 5, dpi = 300, bg = "white")
+ggsave(here(ruta_salida, "Grafico5_CV_Tipologia_Area.png"),
+       plot = plot_cv_tipo_area,  width = 12, height = 6, dpi = 300, bg = "white")
+
+
+
