@@ -466,3 +466,24 @@ plot_nbi_area <- enaho_explorar %>%
   theme(legend.position = "bottom")
 print(plot_nbi_area)
 
+# ==============================================================================
+# 4. EXPORTACIÓN MASIVA--------------------------------------------------------
+# ==============================================================================
+ruta_salida <- "outputs/outputs_exploracion_mascotas"
+
+if (!dir.exists(ruta_salida)) {
+  dir.create(ruta_salida, recursive = TRUE)
+}
+
+# Tablas
+save_as_image(ft_mascota,      path = paste0(ruta_salida, "/Tabla1_Tenencia_Mascota.png"))
+save_as_image(ft_tipo_mascota, path = paste0(ruta_salida, "/Tabla2_Tipo_Mascota.png"))
+save_as_image(ft_nbi,          path = paste0(ruta_salida, "/Tabla3_NBI_Resumen.png"))
+save_as_image(ft_nbi_detalle,  path = paste0(ruta_salida, "/Tabla4_NBI_Detalle.png"))
+save_as_image(ft_nbi_tipo,     path = paste0(ruta_salida, "/Tabla5_NBI_Tipo_Mascota.png"))
+save_as_image(ft_mascota_area, path = paste0(ruta_salida, "/Tabla6_Mascota_Area.png"))
+save_as_image(ft_nbi_area,     path = paste0(ruta_salida, "/Tabla7_NBI_Area.png"))
+
+
+
+
