@@ -109,5 +109,48 @@ enaho_diseno_analitico <- enaho_analitica %>%
     nest    = TRUE
   )
 
+# ==============================================================================
+# 2. EXPORTACIÓN DE LA BASE ANALÍTICA------------------------------------------
+# ==============================================================================
+write_parquet(
+  enaho_analitica,
+  here::here("datos", "procesados", "enaho_mascotas_analitica_030726.parquet")
+)
+
+# ==============================================================================
+# 3. REPORTE DE VARIABLES CREADAS----------------------------------------------
+# ==============================================================================
+reporte_clasificar <- enaho_diseno_analitico %>%
+  tbl_svysummary(
+    include = c(
+      indice_cv,
+      categoria_cv,
+      tipologia_mascota
+    ),
+    label = list(
+      indice_cv         ~ "Índice de Calidad de Vivienda (0-3)",
+      categoria_cv      ~ "Categoría de Calidad de Vivienda",
+      tipologia_mascota ~ "Tipología de Tenencia de Mascotas"
+    ),
+    statistic = list(
+      all_categorical() ~ "{n_unweighted} ({p}%)",
+      all_continuous()  ~ "{mean} ({sd})"
+    ),
+    digits       = all_continuous() ~ 2,
+    missing_text = "(Casos perdidos / NA)"
+  ) %>%
+  modify_header(label = "**Variable Construida / Recodificada**") %>%
+  modify_caption("**Reporte de Variables Analíticas - Clasificación (ENAHO 2025 - Módulo 118)**") %>%
+  bold_labels()
+
+# Imprimir en el visor de RStudio
+reporte_clasificar
+
+# Exportar el reporte a HTML
+reporte_clasificar %>%
+  as_flex_table() %>%
+  flextable::save_as_html(
+    path = here::here("outputs", "CLASIFICAR_Reporte_VariablesCreadas.html")
+  )
 
 
