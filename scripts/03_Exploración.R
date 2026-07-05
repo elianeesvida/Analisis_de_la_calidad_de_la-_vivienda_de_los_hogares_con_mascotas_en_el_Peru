@@ -107,4 +107,21 @@ enaho_diseno_mascotas <- enaho_explorar %>%
   as_survey_design(ids = conglome, strata = estrato,
                    weights = factor_s, nest = TRUE)
 
-
+# ------------------------------------------------------------------------------
+# 3. FUNCIÓN DE FORMATO FLEXTABLE----------------------------------------------
+# ------------------------------------------------------------------------------
+formato_flextable <- function(tabla, titulo) {
+  flextable(tabla) %>%
+    add_header_lines(values = titulo) %>%
+    add_footer_lines(values = "Fuente: ENAHO 2025. Cálculos expandidos a nivel poblacional.") %>%
+    autofit() %>%
+    theme_vanilla() %>%
+    border_inner_h(part = "body", border = officer::fp_border(width = 0)) %>%
+    align(align = "center", part = "all") %>%
+    align(j = 1, align = "left", part = "body") %>%
+    bold(part = "header") %>%
+    align(align = "left", part = "footer") %>%
+    fontsize(size = 9, part = "footer") %>%
+    hline_bottom(part = "body",   border = officer::fp_border(width = 1)) %>%
+    hline_bottom(part = "footer", border = officer::fp_border(width = 0))
+}
