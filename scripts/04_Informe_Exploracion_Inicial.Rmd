@@ -1,0 +1,6 @@
+---
+title: "Análisis exploratorio de datos (EDA) - Proyecto Mascotas"
+author: "Eliane Caceres"
+date: "2026-07-03"
+output: html_document
+---
