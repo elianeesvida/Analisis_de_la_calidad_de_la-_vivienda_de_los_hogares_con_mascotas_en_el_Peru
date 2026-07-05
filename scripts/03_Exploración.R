@@ -221,4 +221,91 @@ plot_tipo_mascota <- enaho_explorar %>%
   theme_minimal()
 print(plot_tipo_mascota)
 
+# ==============================================================================
+# SECCIÓN 3: ¿CÓMO SON LAS CONDICIONES DE VIVIENDA DE HOGARES CON MASCOTAS?---
+# Propósito: Explorar la variabilidad individual de nbi1, nbi2 y nbi3.
+# Una variable con poca variabilidad (ej. 99% en un valor) no aportaría
+# información útil al índice. Esta sección justifica incluir las tres NBI.
+# ==============================================================================
+
+# Tabla 3: Las tres NBI en una sola tabla resumen
+tabla_nbi <- enaho_diseno_mascotas %>%
+  summarise(
+    `NBI 1: Vivienda inadecuada`      = survey_mean(nbi1, vartype = NULL) * 100,
+    `NBI 2: Hacinamiento`             = survey_mean(nbi2, vartype = NULL) * 100,
+    `NBI 3: Sin servicios higiénicos` = survey_mean(nbi3, vartype = NULL) * 100
+  ) %>%
+  pivot_longer(everything(),
+               names_to  = "Indicador NBI",
+               values_to = "% Hogares con NBI insatisfecha") %>%
+  mutate(`% Hogares con NBI insatisfecha` =
+           paste0(round(`% Hogares con NBI insatisfecha`, 1), "%"))
+
+ft_nbi <- formato_flextable(tabla_nbi,
+                            "Tabla 3. Proporción de hogares con NBI insatisfecha, según indicador (hogares con mascotas), 2025")
+print(ft_nbi)
+
+# Tabla 4: Distribución detallada de cada NBI (0 y 1)
+tabla_nbi_detalle <- enaho_diseno_mascotas %>%
+  group_by(nbi1_etiqueta) %>%
+  summarise(Hogares = survey_total(vartype = NULL),
+            Porcentaje = survey_mean(vartype = NULL) * 100) %>%
+  mutate(NBI = "NBI 1: Vivienda inadecuada",
+         Hogares = scales::comma(round(Hogares, 0)),
+         Porcentaje = paste0(round(Porcentaje, 1), "%")) %>%
+  rename(Condicion = nbi1_etiqueta) %>%
+  bind_rows(
+    enaho_diseno_mascotas %>%
+      group_by(nbi2_etiqueta) %>%
+      summarise(Hogares = survey_total(vartype = NULL),
+                Porcentaje = survey_mean(vartype = NULL) * 100) %>%
+      mutate(NBI = "NBI 2: Hacinamiento",
+             Hogares = scales::comma(round(Hogares, 0)),
+             Porcentaje = paste0(round(Porcentaje, 1), "%")) %>%
+      rename(Condicion = nbi2_etiqueta),
+    enaho_diseno_mascotas %>%
+      group_by(nbi3_etiqueta) %>%
+      summarise(Hogares = survey_total(vartype = NULL),
+                Porcentaje = survey_mean(vartype = NULL) * 100) %>%
+      mutate(NBI = "NBI 3: Sin servicios higiénicos",
+             Hogares = scales::comma(round(Hogares, 0)),
+             Porcentaje = paste0(round(Porcentaje, 1), "%")) %>%
+      rename(Condicion = nbi3_etiqueta)
+  ) %>%
+  select(NBI, Condicion, Hogares, Porcentaje) %>%
+  rename(`Indicador NBI` = NBI, `Condición` = Condicion,
+         `Total (N)` = Hogares, `%` = Porcentaje)
+
+ft_nbi_detalle <- formato_flextable(tabla_nbi_detalle,
+                                    "Tabla 4. Distribución de hogares con mascotas según condición de cada NBI, 2025")
+print(ft_nbi_detalle)
+
+# Gráfico 3: Las tres NBI juntas
+plot_nbi <- enaho_explorar %>%
+  filter(tiene_mascota == TRUE) %>%
+  select(factor_s, nbi1, nbi2, nbi3) %>%
+  pivot_longer(cols = c(nbi1, nbi2, nbi3),
+               names_to = "NBI", values_to = "Valor") %>%
+  mutate(
+    NBI = case_when(
+      NBI == "nbi1" ~ "NBI 1:\nVivienda inadecuada",
+      NBI == "nbi2" ~ "NBI 2:\nHacinamiento",
+      NBI == "nbi3" ~ "NBI 3:\nSin servicios higiénicos"
+    ),
+    Valor = factor(Valor, levels = c(0, 1),
+                   labels = c("Satisfecha", "Insatisfecha"))
+  ) %>%
+  ggplot(aes(x = NBI, fill = Valor, weight = factor_s)) +
+  geom_bar(position = "fill", alpha = 0.85) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Satisfecha" = "#4575B4", "Insatisfecha" = "#D73027")) +
+  labs(title   = "Gráfico 3. Condiciones de vivienda (NBI) en hogares con mascotas, 2025",
+       x       = "Indicador NBI",
+       y       = "Proporción de hogares",
+       fill    = "Necesidad básica:",
+       caption = "Fuente: ENAHO 2025") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+print(plot_nbi)
+
 
