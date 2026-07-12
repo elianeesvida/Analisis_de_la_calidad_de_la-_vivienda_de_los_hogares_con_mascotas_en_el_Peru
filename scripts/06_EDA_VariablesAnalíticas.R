@@ -321,7 +321,7 @@ save_as_docx(tabla_cv_tipologia,  path = here(ruta_salida, "Tabla3_CV_Tipologia.
 save_as_docx(tabla_cv_area,       path = here(ruta_salida, "Tabla4_CV_Area.docx"))
 save_as_docx(tabla_cv_tipo_area,  path = here(ruta_salida, "Tabla5_CV_Tipologia_Area.docx"))
 
-# Gráficos en PNG
+# Gráficos en PNG 
 ggsave(here(ruta_salida, "Grafico1_Calidad_Vivienda.png"),
        plot = plot_categoria_cv,  width = 8,  height = 5, dpi = 300, bg = "white")
 ggsave(here(ruta_salida, "Grafico2_Tipologia_Mascota.png"),
