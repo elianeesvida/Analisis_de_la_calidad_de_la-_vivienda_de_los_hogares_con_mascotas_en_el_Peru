@@ -4,3 +4,111 @@ author: "Eliane Caceres"
 date: "2026-07-03"
 output: html_document
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE, 
+  message = FALSE, 
+  fig.align = 'center', 
+  out.width = '85%'
+)
+```
+
+# **Introducción**
+El presente documento realiza un análisis exploratorio de datos (EDA) de las variables seleccionadas para el proyecto "Análisis de la calidad de la vivienda de los hogares con mascotas en el Perú". El análisis utiliza datos del módulo 118 y el módulo 100 de la ENAHO 2025, aplicado como sub-muestra entre julio y diciembre de 2025. El objetivo del EDA no es solo descriptivo — cada tabla y gráfico presentado constituye evidencia para justificar las decisiones metodológicas del script de clasificación, en particular la construcción de la variable analítica sobre condiciones de vivienda.
+
+**Nota metodológica:** La sub-muestra del módulo 118 presenta una distribución geográfica desbalanceada: 71.9% de hogares en áreas urbanas vs 28.1% en rurales. Esto puede subestimar los niveles de NBI insatisfecha a nivel nacional, dado que las zonas rurales concentran peores condiciones de vivienda. Si bien el factor de expansión (`factor_s`) corrige parcialmente este desbalance, los resultados deben interpretarse con cautela, especialmente en el análisis por área geográfica.
+
+---
+
+## I. Análisis Univariado
+
+### 1. ¿Cuántos hogares tienen mascotas?
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla1_Tenencia_Mascota.png"))
+```
+La **Tabla 1** muestra que el 63.3% de los hogares peruanos tiene al menos una mascota, frente a un 36.7% que no tiene ninguna. Esta mayoría relativa, casi dos de cada tres hogares, confirma que la tenencia de mascotas es un fenómeno extendido y no un comportamiento minoritario o marginal en la población peruana, lo cual respalda la relevancia del proyecto de investigación.
+
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico1_Tenencia_Mascota.png"))
+```
+El **Gráfico 1** ilustra visualmente esta diferencia, evidenciando que el tamaño de la submuestra con mascota resulta suficientemente grande como para sostener con solidez estadística los análisis posteriores.
+
+---
+
+### 2. ¿Qué tipo de mascotas tienen?
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla2_Tipo_Mascota.png"))
+```
+La **Tabla 2** muestra que el perro es la mascota predominante entre los hogares que tienen al menos una, presente en el 81.2% de estos, seguido por el gato con 52%, mientras que otro tipo de mascota aparece solo en el 5.6%. Cabe notar que estos porcentajes suman más de 100%, lo que confirma que las categorías no son mutuamente excluyentes: un número considerable de hogares posee simultáneamente más de un tipo de mascota.
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico2_Tipo_Mascota.png"))
+```
+El **Gráfico 2** muestra visualmente esta jerarquía. En cuanto al tamaño de cada grupo, tanto "perro" como "gato" cuentan con una cantidad de casos amplia, mientras que "otra mascota" es notoriamente más pequeño, lo cual será un elemento a considerar al evaluar el tipo de mascota como variable de comparación.
+
+---
+
+### 3. ¿Cómo son las condiciones de vivienda de hogares con mascotas?
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla3_NBI_Resumen.png"))
+```
+La **Tabla 3** muestra que, entre los hogares con mascotas, el 5.4% presenta vivienda inadecuada, el 3.2% enfrenta hacinamiento y el 4.4% no cuenta con servicios higiénicos adecuados. Aunque estas cifras son minoritarias frente al total de hogares con mascotas, revelan que las carencias de vivienda no son un fenómeno inexistente en esta población, sino un problema que afecta consistentemente a un segmento identificable en cada una de las tres dimensiones evaluadas.
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico3_NBI_Mascotas.png"))
+```
+El **Gráfico 3** confirma visualmente este patrón: en los tres indicadores, la proporción de hogares en carencia (en rojo) es reducida pero claramente distinguible del resto. Esta presencia sostenida, aunque acotada, de casos con NBI insatisfecha en las tres variables justifica su inclusión conjunta en la construcción del índice de calidad de la vivienda, ya que cada una aporta evidencia de un tipo distinto de privación habitacional que no se superpone necesariamente con las otras.
+
+---
+
+## II. Análisis Bivariado
+
+### 4. ¿Las condiciones de vivienda varían según el tipo de mascota?
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla5_NBI_Tipo_Mascota.png"))
+```
+La **Tabla 5** muestra que las diferencias de NBI's según tipo de mascota son, en general, reducidas. En cuanto a los hogares con vivienda inadecuada, los que tienen "otra mascota" presentan el porcentaje más alto (7.9%), frente a 5.6% en gato y 5.5% en perro. En hacinamiento, el patrón se invierte: "otra mascota" registra el valor más bajo (1.1%), mientras que gato (3.4%) y perro (3.1%) son similares entre sí. En cuanto a los que no tienen servicios higiénicos, las tres categorías se mantienen en un rango estrecho (4.2%-5%). 
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico4_NBI_Tipo_Mascota.png"))
+```
+El **Gráfico 4** muestra visualmente que, con excepción de "otra mascota" en vivienda adecuada y hacinamiento, los hogares con NBI (barras rojas) mantienen una altura similar entre gato, perro y otra mascota en las tres dimensiones. Esta relativa homogeneidad sugiere que el tipo de mascota no constituye, por sí solo, un factor determinante de las condiciones de vivienda del hogar. Sin embargo, cabe considerar, que el grupo "otra mascota" corresponde a una submuestra considerablemente más pequeña (5.6% de los hogares con mascota, según la Tabla 2), por lo que sus porcentajes, en particular el pico en vivienda inadecuada, deben interpretarse con cautela, ya que son más sensibles a variaciones por el menor número de casos.
+---
+
+### 5. ¿Hay diferencias entre área urbana y rural?
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla6_Mascota_Area.png"))
+```
+La **Tabla 6** muestra que la tenencia de mascotas es más frecuente en el área rural (74.5%) que en el área urbana (61%), lo que sugiere que la presencia de animales en el hogar podría estar más asociada a dinámicas propias del entorno rural (por ejemplo, funciones de guardia o apoyo productivo) que a un patrón exclusivamente urbano de compañía.
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Tabla7_NBI_Area.png"))
+```
+La **Tabla 7** revela que las carencias de vivienda son sistemáticamente más altas en el área rural en las tres dimensiones evaluadas: la carencia de vivienda adecuada casi se duplica (8% rural frente a 4.7% urbano), el hacinamiento more que se duplica (6.3% frente a 2.5%), y la carencia de servicios higiénicos presenta la brecha más pronunciada, siendo más de cinco veces mayor en el área rural (12.4%) que en el área urbana (2.4%).
+
+
+```{r}
+knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico5_NBI_Area.png"))
+```
+El **Gráfico 5** confirma visualmente esta tendencia: en las tres dimensiones, la barra roja (hogares en carencia) es notoriamente más alta en el área rural, con la brecha más marcada en el acceso a servicios higiénicos.
+Estos resultados indican que el área geográfica sí constituye una variable de contexto relevante para el análisis: no solo se relaciona con una mayor tenencia de mascotas, sino, sobre todo, con una mayor exposición a carencias habitacionales. Por ello, resulta pertinente incorporar el área geográfica como variable de control en el script de clasificación, de modo que las comparaciones por tipo de mascota no confundan el efecto de la mascota con el efecto del entorno geográfico en el que reside el hogar. Cabe recordar, además, la advertencia señalada en la nota metodológica: dado que la submuestra del módulo 118 subrepresenta a los hogares rurales (28.1% frente a un mayor peso esperado a nivel nacional), es probable que las brechas urbano-rurales aquí observadas sean, si acaso, una subestimación de la disparidad real.
+
+
