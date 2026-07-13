@@ -1,8 +1,12 @@
 .Rproj.user
 .Rhistory
 .RData
-.Ruserdata
+.httr-oauth
+.DS_Store
+.quarto
+
 datos/crudos/
-datos/porcesados/
+datos/procesados/
 *.csv
+*.sav
 *.parquet
