@@ -6,4 +6,4 @@ datos/crudos/
 datos/procesados/
 *.csv
 *.parquet
-
+*.xlsx
