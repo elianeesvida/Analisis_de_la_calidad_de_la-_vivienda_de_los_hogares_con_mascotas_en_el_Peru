@@ -48,7 +48,7 @@ El directorio se organiza a través de la siguiente estructura de carpetas:
 ├── renv/                        # Carpeta aislada del entorno local de paquetes
 ├── renv.lock                    # Registro exacto de las versiones de las librerías
 ├── .gitignore                   # Exclusión de datos masivos del repositorio
-└── [Nombre_del_Proyecto].Rproj  # Archivo de inicialización del entorno R
+└── Proyecto-Mascotas-ENAHO-2025-.Rproj  # Archivo de inicialización del entorno R
 ```
 
 A continuación, se detalla las principales decisiones y acciones tomadas en cada paso del flujo de trabajo. Si se tienen dudas más específicas, por favor referirse al script correspondiente.
