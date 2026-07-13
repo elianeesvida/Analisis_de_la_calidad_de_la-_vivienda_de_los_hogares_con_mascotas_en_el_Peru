@@ -14,10 +14,3 @@ dir.create("outputs")
 dir.create("docs")
 dir.create("scripts")
 
-
-#Enlace con Git y GitHub
-install.packages("usethis")
-usethis::use_git()
-usethis::use_github()
-usethis::create_github_token()
-gitcreds::gitcreds_set()
