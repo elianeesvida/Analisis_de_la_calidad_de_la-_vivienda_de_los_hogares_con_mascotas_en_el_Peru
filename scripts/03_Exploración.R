@@ -55,7 +55,7 @@ enaho_explorar <- enaho_mascotas %>%
     # Estratos 1-6: Lima Metropolitana, Costa urbana, Sierra urbana, Selva urbana
     # Estratos 7-8: Costa rural, Sierra rural, Selva rural, Lima rural
     area = case_when(
-      estrato %in% c(1, 2, 3, 4, 5,6) ~ "Urbano",
+      estrato %in% c(1, 2, 3, 4, 5, 6) ~ "Urbano",
       estrato %in% c(7, 8) ~ "Rural",
       TRUE                        ~ NA_character_
     ),
