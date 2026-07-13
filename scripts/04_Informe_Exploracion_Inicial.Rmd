@@ -108,6 +108,7 @@ La **Tabla 7** revela que las carencias de vivienda son sistemáticamente más a
 ```{r}
 knitr::include_graphics(here::here("outputs", "outputs_exploracion_mascotas", "Grafico5_NBI_Area.png"))
 ```
+
 El **Gráfico 5** confirma visualmente esta tendencia: en las tres dimensiones, la barra roja (hogares en carencia) es notoriamente más alta en el área rural, con la brecha más marcada en el acceso a servicios higiénicos.
 Estos resultados indican que el área geográfica sí constituye una variable de contexto relevante para el análisis: no solo se relaciona con una mayor tenencia de mascotas, sino, sobre todo, con una mayor exposición a carencias habitacionales. Por ello, resulta pertinente incorporar el área geográfica como variable de control en el script de clasificación, de modo que las comparaciones por tipo de mascota no confundan el efecto de la mascota con el efecto del entorno geográfico en el que reside el hogar. Cabe recordar, además, la advertencia señalada en la nota metodológica: dado que la submuestra del módulo 118 subrepresenta a los hogares rurales (28.1% frente a un mayor peso esperado a nivel nacional), es probable que las brechas urbano-rurales aquí observadas sean, si acaso, una subestimación de la disparidad real.
 
